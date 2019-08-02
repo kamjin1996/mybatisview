@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+    PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+    "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+    <context id="table" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!--数据库链接地址账号密码-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/mytest"
+                        userId="root" password="123">
+        </jdbcConnection>
+        <!-- 指定生成的类型为java类型，避免数据库中number等类型字段 -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!--生成Model类存放位置-->
+        <javaModelGenerator targetPackage="mybatis.test.model" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+            <property name="" value="false"/>
+        </javaModelGenerator>
+        <!--生成映射文件存放位置-->
+        <sqlMapGenerator targetPackage="mybatis.test.mapper/xml" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!--生成Dao类存放位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="mybatis.test.mapper"
+                             targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        <!-- 此处是将UserMapper.xml改名为UserDao.xml 当然 想改成什么都行~ -->
+        <!--<plugin type="org.mybatis.generator.plugins.rename.RenameSqlMapperPlugin">-->
+            <!--<property name="searchString" value="Mapper" />-->
+            <!--<property name="replaceString" value="Dao" />-->
+        <!--</plugin>-->
+        <!--生成对应表及类名-->
+        <!--<table tableName="account_cert" domainObjectName="CertSealAccountCertDO" mapperName="CertSealAccountCertDAO">-->
+            <!--&lt;!&ndash;使用和数据库一样的命名，有大小写混搭时使用&ndash;&gt;-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="account_cert_outer" domainObjectName="CertSealAccountCertOuterDO" mapperName="CertSealAccountCertOuterDAO">-->
+            <!--&lt;!&ndash;使用和数据库一样的命名，有大小写混搭时使用&ndash;&gt;-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="account_seal" domainObjectName="AccountSealDO" mapperName="AccountSealDAO">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="account_seal_outer" domainObjectName="CertSealAccountSealOuterDO" mapperName="CertSealAccountSealOuterDAO">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="cert_info_event" domainObjectName="CertInfoEventDO" mapperName="CertInfoEventDAO">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="cert_info_extra" domainObjectName="CertInfoExtraDO" mapperName="CertInfoExtraDAO">-->
+
+        <!--</table>-->
+        <!--<table tableName="cert_info_ref" domainObjectName="CertSealCertInfoRefDO" mapperName="CertSealCertInfoRefDAO">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="cert_info_ref_outer" domainObjectName="CertSealCertInfoRefOuterDO" mapperName="CertSealCertInfoRefOuterDAO">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="seal_asn1_data" domainObjectName="SealAsn1DataDO" mapperName="SealAsn1DataDAO">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="seal_import" domainObjectName="SealImportDO" mapperName="SealImportDAO">-->
+
+        <!--</table>-->
+        <!--<table tableName="seal_manager" domainObjectName="SealManagerDO" mapperName="SealManagerDAO">-->
+
+        <!--</table>-->
+        <!--<table tableName="seal_record" domainObjectName="SealRecordDO" mapperName="SealRecordDAO">-->
+
+        <!--</table>-->
+        <!--<table tableName="seal_request" domainObjectName="CertSealSealRequestDO" mapperName="CertSealSealRequestDAO">-->
+
+        <!--</table>-->
+        <!--<table tableName="seal_request_outer" domainObjectName="CertSealSealRequestOuterDO" mapperName="CertSealSealRequestOuterDAO">-->
+
+        <!--</table>-->
+        <!--<table tableName="seal_request_provision" domainObjectName="SealRequestProvisionDO" mapperName="SealRequestProvisionDAO">-->
+
+        <!--</table>-->
+        <!--<table tableName="seal_signature" domainObjectName="SealSignatureDO" mapperName="SealSignatureDAO">-->
+            <!--&lt;!&ndash;   &ndash;&gt;-->
+        <!--</table>-->
+        <!--<table tableName="seal_type" domainObjectName="SealTypeDO" mapperName="SealTypeDAO">-->
+            <!--&lt;!&ndash;   &ndash;&gt;-->
+        <!--</table>-->
+        <!--<table tableName="equip_info" domainObjectName="CertSealEquipInfoDO" mapperName="CertSealEquipInfoDAO">-->
+
+        <!--</table>-->
+        <!--<table tableName="account" domainObjectName="CertSealAccountDO" mapperName="CertSealAccountDAO">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="account_outer" domainObjectName="AccountOuterDO" mapperName="AccountOuterDAO">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="properties" domainObjectName="PropertiesDO" mapperName="PropertiesDAO">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="project" domainObjectName="CertSealProjectDO" mapperName="CertSealProjectDAO">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="evidence_scene_type" domainObjectName="EvidenceSceneTypeDO" mapperName="EvidenceSceneTypeDAO">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="evidence_link_type" domainObjectName="EvidenceLinkTypeDO" mapperName="EvidenceLinkTypeDAO">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="evidence_link_task" domainObjectName="CertSealEvidenceLinkTaskDO" mapperName="CertSealEvidenceLinkTaskDAO">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="evidence_task" domainObjectName="EvidenceTaskDO" mapperName="EvidenceTaskDAO">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="special_seal" domainObjectName="CertSealSpecialSealDO" mapperName="CertSealSpecialSealDAO">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="department_cert_ref" domainObjectName="DepartmentCertRefDO" mapperName="DepartmentCertRefDAO">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="event_sign_person" domainObjectName="CertSealEventSignPersonDO" mapperName="CertSealEventSignPersonDAO">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="service_issue" domainObjectName="ServiceIssueDO" mapperName="ServiceIssueDAO">-->
+            <!--<property name="useActualColumnNames" value="false"/>-->
+        <!--</table>-->
+
+        <!--<table tableName="optlog" domainObjectName="CertSealOptlogDO" mapperName="CertSealOptlogDAO">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="evidence_log" domainObjectName="EvidenceLogDO" mapperName="EvidenceLogDAO">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="seal_request_provision" domainObjectName="SealRequestProvisionDO" mapperName="SealRequestProvisionDAO">-->
+
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="evidence_link" domainObjectName="CertSealEvidenceLinkDO" mapperName="CertSealEvidenceLinkDAO">-->
+
+        <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="mobile_send_log" domainObjectName="MobileSendLogDO" mapperName="MobileSendLogDAO">-->
+
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="service_issue_log" domainObjectName="ServiceIssueLogDO" mapperName="ServiceIssueLogDAO">-->
+
+            <!--<property name="useActualColumnNames" value="false"/>-->
+        <!--</table>-->
+       <!-- <table tableName="sms_template" domainObjectName="SmsTemplateDO" mapperName="SmsTemplateDAO">
+            <property name="useActualColumnNames" value="true"/>
+        </table>-->
+
+        <!--<table tableName="email_send_log" domainObjectName="EmailSendLogDO" mapperName="EmailSendLogDAO">
+            <property name="useActualColumnNames" value="true"/>
+        </table>-->
+       <!--<table tableName="print_permission" domainObjectName="CertSealPrintPermissionDO" mapperName="CertSealPrintPermissionDAO">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+
+        <!--<table tableName="print_printer_permission" domainObjectName="CertSealPrintPrinterPermissionDO" mapperName="CertSealPrintPrinterPermissionDAO">-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="print_apply" domainObjectName="CertSealPrintApplyDO" mapperName="CertSealPrintApplyDAO">-->
+        <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="scope_deps_ref" domainObjectName="CertSealScopeDepsRefDO" mapperName="CertSealScopeDepsRefDAO">-->
+        <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="role_menu" domainObjectName="RoleMenuDO" mapperName="RoleMenuDAO">-->
+        <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="print_task_log" domainObjectName="CertSealPrintTaskLogDO" mapperName="CertSealPrintTaskLogDAO">-->
+        <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+
+        <!--<table tableName="archive_doc" domainObjectName="CertSealArchiveDocDO" mapperName="CertSealArchiveDocDAO">-->
+        <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+
+
+        <!--<table tableName="application" domainObjectName="ApplicationDO" mapperName="ApplicationDAO">-->
+        <!--<property name="useActualColumnNames" value="false"/>-->
+        <!--</table>-->
+
+        <!--<table tableName="document_watermarking" domainObjectName="DocumentWatermarkingDO" mapperName="DocumentWatermarkingDAO">-->
+        <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="print_count_control" domainObjectName="CertSealPrintCountControlDO" mapperName="CertSealPrintCountControlDAO">-->
+        <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+
+        <!--<table tableName="borrow_approve" domainObjectName="CertSealBorrowApproveDO" mapperName="CertSealBorrowApproveDAO">-->
+        <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+
+        <!--<table tableName="account" domainObjectName="CertSealAccountDO" mapperName="CertSealAccountDAO">-->
+        <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+
+        <!--<table tableName="language_dictionary" domainObjectName="LanguageDictionaryDO" mapperName="LanguageDictionaryDAO">-->
+        <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="hand_painted_seal" domainObjectName="HandPaintedSealDO" mapperName="HandPaintedSealDAO">
+            <property name="useActualColumnNames" value="false"/>
+        </table>
+        <table tableName="cert_csr_info" domainObjectName="CertCsrInfoDO" mapperName="CertCsrInfoDAO">
+            <property name="useActualColumnNames" value="false"/>
+        </table>-->
+
+        <!--<table tableName="account_public_cloud_seal_outer" domainObjectName="AccountPublicCloudSealOuterDO" mapperName="AccountPublicCloudSealOuterDAO">-->
+            <!--<property name="useActualColumnNames" value="false"/>-->
+        <!--</table>-->
+
+        <!--<table tableName="sign_scene_cert_channel" domainObjectName="SignSceneCertChannelDO" mapperName="SignSceneCertChannelDAO">-->
+        <!--<property name="useActualColumnNames" value="false"/>-->
+        <!--</table>-->
+
+        <!--<table tableName="t_user" domainObjectName="User" mapperName="UserMapper">-->
+            <!--<property name="useActualColumnNames" value="false"/>-->
+        <!--</table>-->
+        <table tableName="t_student" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false" domainObjectName="Student" mapperName="StudentMapper">
+            <property name="useActualColumnNames" value="false"/>
+        </table>
+    </context>
+    </generatorConfiguration>
