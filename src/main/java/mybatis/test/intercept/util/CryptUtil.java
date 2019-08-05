@@ -2,10 +2,7 @@ package mybatis.test.intercept.util;
 
 import mybatis.test.intercept.config.ConfigInit;
 import org.apache.commons.codec.binary.Base64;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
@@ -20,7 +17,6 @@ import java.util.Set;
  * @author tuosen
  * @date 2019-07-30 12:49
  */
-@Component
 public final class CryptUtil {
 
     private static final String CRYPT_WAY = "AES";
@@ -31,15 +27,13 @@ public final class CryptUtil {
     private static final String KEY_NOT_BE_NULL = "KEY不能为空";
     private static final String KEY_LENGTH_NOT_SUPPORT = "KEY长度不符合";
 
-    @Autowired
-    private ConfigInit configInit;
-
     private static String secretKey;
     private static Boolean cryptEnable;
 
     private static final Set<Class> IGNORE_CLASS = new HashSet<>();
 
     static {
+        //initIgnoreClass
         IGNORE_CLASS.add(Byte.class);
         IGNORE_CLASS.add(Short.class);
         IGNORE_CLASS.add(Integer.class);
@@ -48,13 +42,10 @@ public final class CryptUtil {
         IGNORE_CLASS.add(Double.class);
         IGNORE_CLASS.add(Boolean.class);
         IGNORE_CLASS.add(Character.class);
-    }
 
-    @PostConstruct
-    private void initConfig() {
-        System.out.println("初始化util");
-        secretKey = this.configInit.getDbCryptSecretKey();
-        cryptEnable = this.configInit.getDbCryptEnable();
+        //initProp
+        secretKey = ConfigInit.DbCrypt_SecretKey;
+        cryptEnable = ConfigInit.DbCrypt_Enable;
     }
 
     public static boolean inIgnoreClass(Class cls) {
@@ -68,22 +59,27 @@ public final class CryptUtil {
      * @return
      * @throws Exception
      */
-    public static String Encrypt(String sSrc) throws Exception {
+    public static String Encrypt(String sSrc) {
         String sKey = secretKey;
         checkKey(sKey);
 
-        KeyGenerator kgen = KeyGenerator.getInstance(CRYPT_WAY);
-        kgen.init(STANDARD_SUPPORT, new SecureRandom(sKey.getBytes()));
-        SecretKey secretKey = kgen.generateKey();
-        byte[] enCodeFormat = secretKey.getEncoded();
-        SecretKeySpec skeySpec = new SecretKeySpec(enCodeFormat, CRYPT_WAY);
+        try {
+            KeyGenerator kgen = KeyGenerator.getInstance(CRYPT_WAY);
+            kgen.init(STANDARD_SUPPORT, new SecureRandom(sKey.getBytes()));
+            SecretKey secretKey = kgen.generateKey();
+            byte[] enCodeFormat = secretKey.getEncoded();
+            SecretKeySpec skeySpec = new SecretKeySpec(enCodeFormat, CRYPT_WAY);
 
-        Cipher cipher = Cipher.getInstance(ALGORITHM_MODE_COMPLEMENT);
-        cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
-        byte[] encrypted = cipher.doFinal(sSrc.getBytes(BYTE_CONTROL));
+            Cipher cipher = Cipher.getInstance(ALGORITHM_MODE_COMPLEMENT);
+            cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
+            byte[] encrypted = cipher.doFinal(sSrc.getBytes(BYTE_CONTROL));
 
-        //此处使用BASE64做转码功能，能起到2次加密的作用。
-        return new Base64().encodeToString(encrypted);
+            //此处使用BASE64做转码功能，能起到2次加密的作用。
+            return new Base64().encodeToString(encrypted);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public static String Decrypt(String sSrc) {

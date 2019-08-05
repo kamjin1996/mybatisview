@@ -1,21 +1,41 @@
 package mybatis.test.intercept.config;
 
-import lombok.Data;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.apache.commons.lang3.StringUtils;
+
+import java.io.InputStreamReader;
+import java.lang.reflect.Field;
+import java.util.Properties;
 
 /**
  * @auther: tuosen
  * @date: 10:22 2019-08-01
- * @description: 配置参数载入
+ * @description: 不依赖spring, 配置参数载入
  */
-@Component
-@Data
 public class ConfigInit {
 
-    @Value("${DbCrypt.secretKey}")
-    private String dbCryptSecretKey;
+    public static String DbCrypt_SecretKey;
+    public static Boolean DbCrypt_Enable;
 
-    @Value("${DbCrypt.enable}")
-    private Boolean dbCryptEnable;
+    static {
+        try {
+            Properties props = new Properties();
+            props.load(new InputStreamReader(
+                    ConfigInit.class.getClassLoader().getResourceAsStream("application.properties"),
+                    "UTF-8"));
+            String envFile = "application.properties";
+            String activeProfile = props.getProperty("spring.profiles.active");
+            if (StringUtils.isNotBlank(activeProfile)) {
+                envFile = "application-" + activeProfile + ".properties";
+            }
+            Properties envProps = new Properties();
+            envProps.load(new InputStreamReader(
+                    ConfigInit.class.getClassLoader().getResourceAsStream(envFile), "UTF-8"));
+            Field[] fields = ConfigInit.class.getFields();
+            for (Field field : fields) {
+                field.set(null, envProps.getProperty(field.getName().replace("_", ".").toLowerCase()));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
