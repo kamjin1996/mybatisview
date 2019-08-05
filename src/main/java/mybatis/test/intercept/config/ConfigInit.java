@@ -19,23 +19,31 @@ public class ConfigInit {
     static {
         try {
             Properties props = new Properties();
-            props.load(new InputStreamReader(
-                    ConfigInit.class.getClassLoader().getResourceAsStream("application.properties"),
+            props.load(new InputStreamReader(ClassLoader.getSystemClassLoader().getResourceAsStream("application.properties"),
                     "UTF-8"));
             String envFile = "application.properties";
             String activeProfile = props.getProperty("spring.profiles.active");
             if (StringUtils.isNotBlank(activeProfile)) {
-                envFile = "application-" + activeProfile + ".properties";
+                envFile = "application-" + activeProfile.toLowerCase() + ".properties";
             }
             Properties envProps = new Properties();
             envProps.load(new InputStreamReader(
-                    ConfigInit.class.getClassLoader().getResourceAsStream(envFile), "UTF-8"));
+                    ClassLoader.getSystemClassLoader().getResourceAsStream(envFile), "UTF-8"));
             Field[] fields = ConfigInit.class.getFields();
+            ConfigInit configInit = ConfigInit.class.newInstance();
             for (Field field : fields) {
-                field.set(null, envProps.getProperty(field.getName().replace("_", ".").toLowerCase()));
+                String property = envProps.getProperty(field.getName().replace("_", ".").toLowerCase());
+                Object value = property;
+                if (field.getType().isAssignableFrom(Boolean.class)) {
+                    value = Boolean.valueOf(property);
+                } else if (field.getType().isAssignableFrom(Integer.class)) {
+                    value = Integer.valueOf(property);
+                }
+                field.set(configInit, value);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 }
