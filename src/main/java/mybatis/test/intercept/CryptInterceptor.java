@@ -1,6 +1,6 @@
 package mybatis.test.intercept;
 
-
+import mybatis.test.intercept.config.ConfigInit;
 import mybatis.test.intercept.resolver.MethodCryptMetadata;
 import mybatis.test.intercept.resolver.MethodCryptMetadataBuilder;
 import org.apache.ibatis.executor.Executor;
@@ -25,21 +25,29 @@ import java.util.concurrent.ConcurrentHashMap;
 public class CryptInterceptor implements Interceptor {
 
     /**
+     * 启用当前插件
+     */
+    private Boolean switchCrypt;
+
+    /**
      * 需加解密处理方法的信息
      */
     private static final ConcurrentHashMap<String, MethodCryptMetadata> METHOD_ENCRYPT_MAP = new ConcurrentHashMap<>();
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        Object[] args = invocation.getArgs();
-        MethodCryptMetadata methodCryptMetadata = getCachedMethodCryptMetaData((MappedStatement) args[0]);
-        // 加密
-        args[1] = methodCryptMetadata.encrypt(args[1]);
-        System.out.println(args[1]);
-        // 获得出参
-        Object returnValue = invocation.proceed();
-        // 解密
-        return methodCryptMetadata.decrypt(returnValue);
+        if (switchCrypt) {
+            Object[] args = invocation.getArgs();
+            MethodCryptMetadata methodCryptMetadata = getCachedMethodCryptMetaData((MappedStatement) args[0]);
+            // 加密
+            args[1] = methodCryptMetadata.encrypt(args[1]);
+            // 获得出参
+            Object returnValue = invocation.proceed();
+            // 解密
+            return methodCryptMetadata.decrypt(returnValue);
+        } else {
+            return invocation.proceed();
+        }
     }
 
     private MethodCryptMetadata getCachedMethodCryptMetaData(MappedStatement mappedStatement) {
@@ -55,6 +63,7 @@ public class CryptInterceptor implements Interceptor {
 
     @Override
     public void setProperties(Properties properties) {
+        this.switchCrypt = ConfigInit.DbCrypt_Enable;
     }
 
 }
