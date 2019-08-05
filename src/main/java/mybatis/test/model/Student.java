@@ -1,8 +1,8 @@
 package mybatis.test.model;
 
 import lombok.Data;
-import mybatis.test.intercept2.annotation.CryptField;
-import mybatis.test.intercept2.executor.CryptType;
+import mybatis.test.intercept.annotation.CryptField;
+import mybatis.test.intercept.executor.CryptType;
 
 @Data
 public class Student {

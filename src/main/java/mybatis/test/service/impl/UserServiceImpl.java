@@ -1,6 +1,5 @@
 package mybatis.test.service.impl;
 
-import mybatis.test.intercept2.annotation.CryptField;
 import mybatis.test.mapper.UserMapper;
 import mybatis.test.model.User;
 import mybatis.test.model.UserExample;

@@ -1,7 +1,5 @@
 package mybatis.test.model;
 
-import mybatis.test.intercept2.annotation.CryptField;
-
 import java.util.ArrayList;
 import java.util.List;
 

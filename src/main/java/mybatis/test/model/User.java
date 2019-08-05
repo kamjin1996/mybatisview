@@ -3,8 +3,8 @@ package mybatis.test.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import mybatis.test.intercept2.annotation.CryptField;
-import mybatis.test.intercept2.executor.CryptType;
+import mybatis.test.intercept.annotation.CryptField;
+import mybatis.test.intercept.executor.CryptType;
 
 @Data
 @AllArgsConstructor
