@@ -52,6 +52,14 @@ public final class CryptUtil {
         return IGNORE_CLASS.contains(cls);
     }
 
+    public static String encrypt(String sSrc) {
+        return encrypt(sSrc, cryptEnable);
+    }
+
+    public static String decrypt(String sSrc) {
+        return decrypt(sSrc, cryptEnable);
+    }
+
     /**
      * 加密
      *
@@ -59,7 +67,7 @@ public final class CryptUtil {
      * @return
      * @throws Exception
      */
-    public static String Encrypt(String sSrc) {
+    private static String encrypt(String sSrc, Boolean enable) {
         String sKey = secretKey;
         checkKey(sKey);
 
@@ -82,7 +90,14 @@ public final class CryptUtil {
         }
     }
 
-    public static String Decrypt(String sSrc) {
+    /**
+     * 解密
+     *
+     * @param sSrc
+     * @param enable
+     * @return
+     */
+    private static String decrypt(String sSrc, Boolean enable) {
         String sKey = secretKey;
         checkKey(sKey);
 
