@@ -1,6 +1,5 @@
 package mybatis.test.intercept.executor;
 
-import mybatis.test.intercept.exception.MyRuntimeException;
 import mybatis.test.intercept.util.CryptUtil;
 
 /**
@@ -12,17 +11,11 @@ public class CommonCryptExecutor implements CryptExecutor {
 
     @Override
     public String encrypt(String str) {
-        String encrypt;
-        try {
-            encrypt = CryptUtil.Encrypt(str);
-        } catch (Exception e) {
-            throw new MyRuntimeException(e.getMessage());
-        }
-        return encrypt;
+        return CryptUtil.encrypt(str);
     }
 
     @Override
     public String decrypt(String str) {
-        return CryptUtil.Decrypt(str);
+        return CryptUtil.decrypt(str);
     }
 }
