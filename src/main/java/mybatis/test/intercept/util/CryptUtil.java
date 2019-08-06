@@ -22,8 +22,8 @@ public final class CryptUtil {
     private static final String CRYPT_WAY = "AES";
     private static final String ALGORITHM_MODE_COMPLEMENT = "AES/ECB/PKCS5Padding";//算法/模式/补码方式
     private static final String BYTE_CONTROL = "utf-8";
-    private static final Integer STANDARD_SUPPORT = 192;//加密标准支持：128/192/256 对应key长度分别为16/24/32
-    private static final Integer KEY_LENGTH = 24;
+    private static final int STANDARD_SUPPORT = 192;//加密标准支持：128/192/256 对应key长度分别为16/24/32
+    private static final int KEY_LENGTH = 24;
     private static final String KEY_NOT_BE_NULL = "KEY不能为空";
     private static final String KEY_LENGTH_NOT_SUPPORT = "KEY长度不符合";
 
@@ -68,6 +68,9 @@ public final class CryptUtil {
      * @throws Exception
      */
     private static String encrypt(String sSrc, Boolean enable) {
+        if (!enable) {
+            return sSrc;
+        }
         String sKey = secretKey;
         checkKey(sKey);
 
@@ -98,6 +101,9 @@ public final class CryptUtil {
      * @return
      */
     private static String decrypt(String sSrc, Boolean enable) {
+        if (!enable) {
+            return sSrc;
+        }
         String sKey = secretKey;
         checkKey(sKey);
 

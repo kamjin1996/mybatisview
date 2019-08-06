@@ -19,8 +19,8 @@ public class ArrayCryptHandler implements CryptHandler<Object> {
             return null;
         }
         return Arrays.stream((Object[]) object)
-            .map(item -> CryptHandlerFactory.getCryptHandler(item, cryptField).encrypt(item, cryptField))
-            .toArray();
+                .map(item -> CryptHandlerFactory.getCryptHandler(item, cryptField).encrypt(item, cryptField))
+                .toArray();
     }
 
     @Override
@@ -29,8 +29,8 @@ public class ArrayCryptHandler implements CryptHandler<Object> {
             return null;
         }
         return Arrays.stream((Object[]) param)
-            .map(item -> CryptHandlerFactory.getCryptHandler(item, cryptField).decrypt(item, cryptField))
-            .toArray();
+                .map(item -> CryptHandlerFactory.getCryptHandler(item, cryptField).decrypt(item, cryptField))
+                .toArray();
     }
 
 

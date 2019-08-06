@@ -1,6 +1,5 @@
 package mybatis.test.intercept.handler;
 
-
 import mybatis.test.intercept.annotation.CryptField;
 import mybatis.test.intercept.executor.CryptExecutorFactory;
 
@@ -16,9 +15,7 @@ public class StringCryptHandler implements CryptHandler<String> {
     @Override
     public Object encrypt(String param, CryptField cryptField) {
         if (needCrypt(param, cryptField)) {
-            String encrypt = CryptExecutorFactory.getTypeHandler(cryptField).encrypt(param);
-            System.out.println(this.getClass().getSimpleName() + " :crypt: " + param + " : " + encrypt);
-            return encrypt;
+            return CryptExecutorFactory.getTypeHandler(cryptField).encrypt(param);
         }
         return param;
     }
@@ -30,9 +27,7 @@ public class StringCryptHandler implements CryptHandler<String> {
     @Override
     public Object decrypt(String param, CryptField cryptField) {
         if (needCrypt(param, cryptField)) {
-            String decrypt = CryptExecutorFactory.getTypeHandler(cryptField).decrypt(param);
-            System.out.println(this.getClass().getSimpleName() + " :decrypt: " + param + " : " + decrypt);
-            return decrypt;
+            return CryptExecutorFactory.getTypeHandler(cryptField).decrypt(param);
         }
         return param;
     }

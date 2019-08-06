@@ -1,7 +1,7 @@
 package mybatis.test.intercept.handler;
 
 import mybatis.test.intercept.annotation.CryptField;
-import mybatis.test.intercept.exception.MyRuntimeException;
+import mybatis.test.intercept.exception.InterceptRuntimeException;
 import org.apache.commons.beanutils.BeanUtils;
 
 import java.lang.reflect.Field;
@@ -27,12 +27,12 @@ public class BeanCryptHandler implements CryptHandler<Object> {
         }
         Object result;
         try {
-            // XXX 对bean的所有操作，会影响本地数据，可能存在重复加密的情况，
+            // 对bean的所有操作，会影响本地数据，可能存在重复加密的情况，
             // 需要clone成新bean，必须要有默认构造器
             result = BeanUtils.cloneBean(bean);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new MyRuntimeException();
+            throw new InterceptRuntimeException();
         }
         List<CryptFiled> filedList = CLASS_ENCRYPT_MAP.computeIfAbsent(result.getClass(), this::getEncryptFields);
         filedList.forEach(cryptFiled -> {
@@ -45,7 +45,7 @@ public class BeanCryptHandler implements CryptHandler<Object> {
                 }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
-                throw new MyRuntimeException();
+                throw new InterceptRuntimeException();
             }
         });
         return result;
@@ -99,7 +99,7 @@ public class BeanCryptHandler implements CryptHandler<Object> {
                 }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
-                throw new MyRuntimeException();
+                throw new InterceptRuntimeException();
             }
         });
         return param;

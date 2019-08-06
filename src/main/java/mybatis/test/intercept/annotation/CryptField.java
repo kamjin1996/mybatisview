@@ -1,6 +1,5 @@
 package mybatis.test.intercept.annotation;
 
-
 import mybatis.test.intercept.executor.CryptType;
 
 import java.lang.annotation.*;

@@ -10,7 +10,6 @@ public class EmptyMethodEncryptResolver implements MethodEncryptResolver {
 
     @Override
     public Object processEncrypt(Object param) {
-        System.out.println("empty");
         return param;
     }
 

@@ -8,7 +8,7 @@ import mybatis.test.intercept.executor.CryptType;
 public class Student {
     private Integer id;
 
-    @CryptField(CryptType.SPECIAL)
+    @CryptField(CryptType.COMMON)
     private String username;
 
     private Integer age;

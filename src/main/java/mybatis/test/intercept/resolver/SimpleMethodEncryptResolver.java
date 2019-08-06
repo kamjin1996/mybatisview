@@ -1,6 +1,5 @@
 package mybatis.test.intercept.resolver;
 
-
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import mybatis.test.intercept.handler.CryptHandlerFactory;

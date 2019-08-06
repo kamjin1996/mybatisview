@@ -1,7 +1,7 @@
 package mybatis.test.intercept.executor;
 
 import mybatis.test.intercept.annotation.CryptField;
-import mybatis.test.intercept.exception.MyRuntimeException;
+import mybatis.test.intercept.exception.InterceptRuntimeException;
 
 /**
  * 加解密执行者工厂类
@@ -24,7 +24,7 @@ public class CryptExecutorFactory {
         } else if (cryptField.value() == CryptType.SPECIAL) {
             cryptExecutor = SPECIAL_HANDLER;
         } else {
-            throw new MyRuntimeException();
+            throw new InterceptRuntimeException();
         }
         return cryptExecutor;
     }

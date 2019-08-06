@@ -1,8 +1,7 @@
 package mybatis.test.intercept.handler;
 
-
-import mybatis.test.intercept.util.CryptUtil;
 import mybatis.test.intercept.annotation.CryptField;
+import mybatis.test.intercept.util.CryptUtil;
 
 import java.util.Collection;
 import java.util.List;

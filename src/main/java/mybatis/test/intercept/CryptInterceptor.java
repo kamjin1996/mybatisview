@@ -1,6 +1,7 @@
 package mybatis.test.intercept;
 
 import mybatis.test.intercept.config.ConfigInit;
+import mybatis.test.intercept.exception.InterceptRuntimeException;
 import mybatis.test.intercept.resolver.MethodCryptMetadata;
 import mybatis.test.intercept.resolver.MethodCryptMetadataBuilder;
 import org.apache.ibatis.executor.Executor;
@@ -9,6 +10,7 @@ import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 
+import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -25,7 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class CryptInterceptor implements Interceptor {
 
     /**
-     * 启用当前插件
+     * 是否开启加解密
      */
     private Boolean switchCrypt;
 
@@ -63,6 +65,9 @@ public class CryptInterceptor implements Interceptor {
 
     @Override
     public void setProperties(Properties properties) {
+        if(Objects.isNull(ConfigInit.DbCrypt_Enable)){
+            throw new InterceptRuntimeException();
+        }
         this.switchCrypt = ConfigInit.DbCrypt_Enable;
     }
 

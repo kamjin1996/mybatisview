@@ -76,6 +76,11 @@ public class StudentServiceTest {
     }
 
     @Test
+    public void findByName(){
+        System.out.println(this.studentService.findById(62).toString());
+    }
+
+    @Test
     public void deleteOne() {
         Student student = new Student();
         student.setUsername("小王");

@@ -13,13 +13,11 @@ public class EmptyCryptHandler implements CryptHandler<Object> {
 
     @Override
     public Object encrypt(Object param, CryptField cryptField) {
-        System.out.println(this.getClass().getSimpleName() + ":crypt: " + param);
         return param;
     }
 
     @Override
     public Object decrypt(Object param, CryptField cryptField) {
-        System.out.println(this.getClass().getSimpleName() + ":decrypt: " + param);
         return param;
     }
 }

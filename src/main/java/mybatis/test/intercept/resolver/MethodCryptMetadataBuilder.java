@@ -1,8 +1,8 @@
 package mybatis.test.intercept.resolver;
 
-import mybatis.test.intercept.util.CryptUtil;
 import mybatis.test.intercept.annotation.CryptField;
-import mybatis.test.intercept.exception.MyRuntimeException;
+import mybatis.test.intercept.exception.InterceptRuntimeException;
+import mybatis.test.intercept.util.CryptUtil;
 import org.apache.ibatis.annotations.Param;
 
 import java.lang.annotation.Annotation;
@@ -167,7 +167,6 @@ public class MethodCryptMetadataBuilder {
         return defaultName;
     }
 
-
     private Method getMethod() {
         try {
             final Class clazz = Class.forName(statementId.substring(0, statementId.lastIndexOf(".")));
@@ -179,7 +178,8 @@ public class MethodCryptMetadataBuilder {
             }
             return null;
         } catch (ClassNotFoundException e) {
-            throw new MyRuntimeException();
+            e.printStackTrace();
+            throw new InterceptRuntimeException();
         }
     }
 }

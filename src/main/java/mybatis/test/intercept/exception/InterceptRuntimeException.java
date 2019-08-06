@@ -6,11 +6,11 @@ package mybatis.test.intercept.exception;
  * @author tuosen
  * @date 2019-07-31 09:48
  */
-public class MyRuntimeException extends RuntimeException {
+public class InterceptRuntimeException extends RuntimeException {
 
-    public MyRuntimeException(){}
+    public InterceptRuntimeException(){}
 
-    public MyRuntimeException(String message) {
+    public InterceptRuntimeException(String message) {
         super(message);
     }
 
