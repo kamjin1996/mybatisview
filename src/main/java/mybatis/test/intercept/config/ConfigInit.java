@@ -1,8 +1,5 @@
 package mybatis.test.intercept.config;
 
-
-import mybatis.test.intercept.exception.InterceptRuntimeException;
-
 import java.io.File;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
@@ -24,10 +21,11 @@ public class ConfigInit {
     static {
         try {
             Field[] fields = ConfigInit.class.getFields();
-            ConfigInit obj = ConfigInit.class.newInstance();
             URL resource = ClassLoader.getSystemClassLoader().getResource("");
 
-            if (Objects.nonNull(resource)) {
+            if (Objects.nonNull(resource) && fields.length > 0) {
+                ConfigInit obj = ConfigInit.class.newInstance();
+
                 File pathFile = new File(resource.getFile());
                 if (pathFile.isDirectory()) {
                     File[] files = pathFile.listFiles();
@@ -35,10 +33,13 @@ public class ConfigInit {
                         Properties prop = new Properties();
 
                         for (File file : files) {
+                            int modifyCount = 0;
+
                             boolean isPropertiesFile = file.isFile() && file.getName().endsWith(".properties");
                             if (isPropertiesFile) {
-                                prop.load(new InputStreamReader(ClassLoader.getSystemClassLoader().getResourceAsStream(file.getName()),
-                                        StandardCharsets.UTF_8));
+                                prop.load(new InputStreamReader(ClassLoader
+                                        .getSystemClassLoader()
+                                        .getResourceAsStream(file.getName()), StandardCharsets.UTF_8));
 
                                 for (Field field : fields) {
                                     String property = prop.getProperty(field.getName().replace("_", ".").toLowerCase());
@@ -54,7 +55,14 @@ public class ConfigInit {
                                         value = Integer.valueOf(property);
                                     }
                                     field.set(obj, value);
+                                    modifyCount++;
                                 }
+                            }
+
+                            if (modifyCount > 0) {
+                                //show file.getName()
+                                //已使用当前配置文件对配置字段进行赋值
+                                break;
                             }
                         }
                     }
@@ -63,8 +71,8 @@ public class ConfigInit {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new InterceptRuntimeException("配置文件中，加密插件属性加载失败");
         }
 
     }
+
 }
